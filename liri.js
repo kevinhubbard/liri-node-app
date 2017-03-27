@@ -35,6 +35,7 @@ switch(command){
 		break;
 }
 
+//function if user enters wrong command
 function notFound() {
 	console.log('command not valid try:');
 	console.log("'my-tweets'");
@@ -42,7 +43,17 @@ function notFound() {
 	console.log("'movie-this'");
 }
 
+//fucntion to log user commands to a log.txt file
+function logCommand() {
+	fs.appendFile('log.txt', command + " " + input + ", " , 'utf8', function (err) {
+	if (err){
+		console.log('there was an error writing the file');
+	}
+});
+	
+} logCommand();
 
+//random function for do-what-it-says
 function whatItSays() {
 
 	fs.readFile('random.txt', 'utf8', function (err, data) {
@@ -55,6 +66,7 @@ function whatItSays() {
 	
 }
 
+//ombd movie request function 
 function movieRequest(title) {
 	request('http://www.omdbapi.com/?t=' + title, function (error, response, body) {
 		var movie =JSON.parse(body);
@@ -80,6 +92,7 @@ function movieRequest(title) {
 	});
 }
 
+//spotify function that returns track info 
 function spotifySong(song) {
 	spotify.search({type: 'track', query: song}, function (err, data) {
 		if(err){
@@ -94,17 +107,8 @@ function spotifySong(song) {
 	});
 }
 
+//twitter request that returns your last 20 tweets
 function twitterTweets(tweets){
 	console.log('your last 20 tweets will go here');
 }
 
-function logCommand() {
-	fs.appendFile('log.txt', command + " " + input + ", " , 'utf8', function (err) {
-	if (err){
-		console.log('there was an error writing the file');
-	}
-});
-	
-}
-
-logCommand();
