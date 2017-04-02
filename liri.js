@@ -2,6 +2,7 @@ var fs = require('fs');
 var request = require('request');
 var Twitter = require('twitter');
 var spotify = require('spotify');
+var keys = require('./keys.js');
 
 var command = process.argv[2];
 var input = process.argv[3];
@@ -109,6 +110,19 @@ function spotifySong(song) {
 
 //twitter request that returns your last 20 tweets
 function twitterTweets(tweets){
-	console.log('your last 20 tweets will go here');
+	var client = new Twitter({
+		consumer_key: '6Y0caylI9I2iigN5mfWkpUP3L',
+		consumer_secret: '0TNqOKIhnYPA3RAaV0VNHPD4LUo352Uaf0Cfwqy8mq20vYTzP6',
+	    access_token_key: '75499248-hpsYH6SxOrFEMxxliDtqb7ton1hIX1g99A8yFCg1Y',
+	    access_token_secret: 'vjpD3SdF6kXmJzOzXAmEjOneeDXIGoTwob3lUxUHlG4kT'
+	});
+
+
+	var params = {screen_name: 'HUBBA_DUBS'};
+	client.get('statuses/user_timeline', params, function (error, tweets, response) {
+		if(!error){
+			console.log(tweets);
+		}
+	});
 }
 
