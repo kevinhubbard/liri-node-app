@@ -110,11 +110,12 @@ function spotifySong(song) {
 
 //twitter request that returns your last 20 tweets
 function twitterTweets(tweets){
+	
 	var client = new Twitter({
-		consumer_key: '6Y0caylI9I2iigN5mfWkpUP3L',
-		consumer_secret: '0TNqOKIhnYPA3RAaV0VNHPD4LUo352Uaf0Cfwqy8mq20vYTzP6',
-	    access_token_key: '75499248-hpsYH6SxOrFEMxxliDtqb7ton1hIX1g99A8yFCg1Y',
-	    access_token_secret: 'vjpD3SdF6kXmJzOzXAmEjOneeDXIGoTwob3lUxUHlG4kT'
+		consumer_key: keys.twitterKeys.consumer_key,
+		consumer_secret: keys.twitterKeys.consumer_secret,
+	    access_token_key: keys.twitterKeys.access_token_key,
+	    access_token_secret: keys.twitterKeys.access_token_secret
 	});
 
 
