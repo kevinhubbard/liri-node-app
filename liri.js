@@ -12,12 +12,8 @@ switch(command){
 		whatItSays();
 		break;
 	case "movie-this":
-		if (input == ""){
-			input = 'Mr. Nobody';
-			movieRequest(input);
-		}else {
-			movieRequest(input);
-		}
+		var key = input.replace(/ /g, '+');
+		movieRequest(key);
 		break;
 	case "my-tweets":
 		twitterTweets();
@@ -69,8 +65,9 @@ function whatItSays() {
 
 //ombd movie request function 
 function movieRequest(title) {
-	request('http://www.omdbapi.com/?t=' + title, function (error, response, body) {
-		var movie =JSON.parse(body);
+	var search = 'http://theapache64.xyz:8080/movie_db/search?keyword=' + title;
+	request(search, function (error, response, body) {
+		var movie = JSON.parse(body);
 
 		if(error){
 			console.log(error);
@@ -78,15 +75,9 @@ function movieRequest(title) {
 		if (movie.Response === "False"){
 			console.log(movie.Error);
 		} else{
-			console.log('Title: ' + movie.Title);
-			console.log('Year: ' + movie.Year);
-			console.log('imdb rating: ' + movie.imdbRating);
-			console.log('Country: ' + movie.Country);
-			console.log('Language: ' + movie.Language);
-			console.log('Plot: ' + movie.Plot);
-			console.log('Actors: ' + movie.Actors);
-			console.log('Metascore: ' + movie.Metascore);
-			console.log('Poster: ' + movie.Poster);
+			console.log('Title: ' + movie.data.name);
+			console.log('Rating: ' + movie.data.rating);
+			console.log('Plot: ' + movie.data.plot);
 		}
 
 
