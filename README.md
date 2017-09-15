@@ -7,18 +7,15 @@ LIRI-node-app (Language Interpretation and Recognition Interface) is a command l
 
 ## Run the app
 The app has 4 available functions
-* my-tweets 'username'
+1. my-tweets {username}
 	* Returns last 20 tweets of entered username
-
-* movie-this 'movie title'
+2. movie-this 'movie title'
 	* Returns movie rating and plot
-
-* id-this-song 'song name'
+3. id-this-song 'song name'
 	* Returns top 5 song titles, artists, and listeners
-
-* my-weather {zip code}
+4. my-weather {zip code}
 	* Returns weather for a given zip code
-	
+
 
 To run them, navigate to the directory and type: node liri {function} {parameter}
 
