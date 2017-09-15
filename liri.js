@@ -1,7 +1,11 @@
 var fs = require('fs');
 var request = require('request');
 var Twitter = require('twitter');
-var spotify = require('spotify');
+var spotify = require('spotify-web-api-node');
+var spotifyApi = new spotify({
+	clientId: 'a6c346e6688040eda33873fb89d9ab94',
+	clientSecret: '9fe3ff9ab107471c9fdc8f6be1b2e6b6'
+});
 var keys = require('./keys.js');
 
 var command = process.argv[2];
@@ -82,16 +86,18 @@ function movieRequest(title) {
 
 //spotify function that returns track info 
 function spotifySong(song) {
-	spotify.search({type: 'track', query: song}, function (err, data) {
-		if(err){
-			console.log('Error occured: ' + err);
+	var track = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + song + '&api_key=75cf84fa3baa670809e72de33e192e20&limit=5&format=json';
+	
+	request(track, function(error, response, body){
+		var trackList = JSON.parse(body);
+		if(error){
+			console.log(error);
+		} else {
+			var total = trackList.results.trackmatches.track;
+			for (var i = 0; i < total.length; i++) {
+				console.log('Track: ' + total[i].name + ', Artist: ' + total[i].artist + ', Listeners: ' + total[i].listeners);
+			}
 		}
-		var track = data.tracks.items[0];
-
-		console.log("\nArtist: " + track.artists[0].name);
-		console.log("Track: " + track.name);
-		console.log("Album: " + track.album.name);
-		console.log("Preview: " + track.preview_url)
 	});
 }
 
