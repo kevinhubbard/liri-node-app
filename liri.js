@@ -36,7 +36,7 @@ switch(command){
 
 //function if user enters wrong command
 function notFound() {
-	console.log('Command not valid try:' + "\n'my-tweets'" + "\n'spotify-this-song'" + "\n'movie-this'" + "\n'my-weather'");
+	console.log('\nCommand not valid try:' + "\n'my-tweets'" + "\n'spotify-this-song'" + "\n'movie-this'" + "\n'my-weather'");
 }
 
 //fucntion to log user commands to a log.txt file
@@ -73,7 +73,7 @@ function movieRequest(title) {
 		if (movie.Response === "False"){
 			console.log(movie.Error);
 		} else{
-			console.log('Title: ' + movie.data.name);
+			console.log('\nTitle: ' + movie.data.name);
 			console.log('Rating: ' + movie.data.rating);
 			console.log('Plot: ' + movie.data.plot);
 		}
@@ -88,7 +88,7 @@ function spotifySong(song) {
 		}
 		var track = data.tracks.items[0];
 
-		console.log("Artist: " + track.artists[0].name);
+		console.log("\nArtist: " + track.artists[0].name);
 		console.log("Track: " + track.name);
 		console.log("Album: " + track.album.name);
 		console.log("Preview: " + track.preview_url)
@@ -121,10 +121,10 @@ function weather(location){
 	request(uri, function(error, response, body){
 		var res = JSON.parse(body);
 
-		if(error){
-			console.log(error);
+		if(res.message === 'city not found'){
+			console.log('\nCity not found. Try another zip.');
 		} else {
-			console.log('Weather for: ' + res.name);
+			console.log('\nWeather for: ' + res.name);
 			console.log('Currently: ' + res.weather[0].main);
 			console.log('Description: ' + res.weather[0].description);
 			console.log('Temperature: ' + res.main.temp +  ' \u00B0F');
