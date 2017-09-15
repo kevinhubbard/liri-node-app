@@ -11,22 +11,37 @@ switch(command){
 		whatItSays();
 		break;
 	case "movie-this":
-		var key = input.replace(/ /g, '+');
-		movieRequest(key);
+		if(input == undefined){
+			input = 'Space+Jam';
+			movieRequest(input);
+		} else {
+			var key = input.replace(/ /g, '+');
+			movieRequest(key);
+		}
 		break;
 	case "my-tweets":
-		twitterTweets();
+		if(input == undefined){
+			input = 'BarackObama';
+			twitterTweets(input);
+		} else {
+			twitterTweets(input);
+		}
 		break;
 	case "id-this-song":
-		if (input == ""){
-			input = 'The Sign';
+		if (input == undefined){
+			input = 'Eclipse';
 			idSong(input);
 		}else {
 			idSong(input);
 		}
 		break;
 	case "my-weather":
-		weather(input);
+		if(input == undefined){
+			input = '10001'
+			weather(input);
+		} else {
+			weather(input);
+		}
 		break;
 	default:
 		notFound();
@@ -97,7 +112,7 @@ function idSong(song) {
 }
 
 //twitter request that returns your last 20 tweets
-function twitterTweets(tweets){
+function twitterTweets(username){
 	
 	var client = new Twitter({
 		consumer_key: keys.twitterKeys.consumer_key,
@@ -107,7 +122,7 @@ function twitterTweets(tweets){
 	});
 
 
-	var params = {screen_name: 'KevinJr23727638', count: '20'};
+	var params = {screen_name: username, count: '20'};
 	client.get('statuses/user_timeline', params, function (error, tweets, response) {
 		
 		if(!error){
