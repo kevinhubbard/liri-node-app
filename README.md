@@ -12,5 +12,6 @@ The app has 4 available functions
 * spotify-this-song 'song name'
 * my-weather {zip code}
 
-To run them, navigate to the directory and type node liri {function} {parameter}
+To run them, navigate to the directory and type: node liri {function} {parameter}
+
 (If the movie title or song name has more than one word delimited by a space it must be put in quotes "" or '')
