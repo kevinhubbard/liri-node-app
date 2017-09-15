@@ -25,7 +25,9 @@ switch(command){
 		}else {
 			spotifySong(input);
 		}
-		
+		break;
+	case "my-weather":
+		weather(input);
 		break;
 	default:
 		notFound();
@@ -34,17 +36,14 @@ switch(command){
 
 //function if user enters wrong command
 function notFound() {
-	console.log('command not valid try:');
-	console.log("'my-tweets'");
-	console.log("'spotify-this-song'");
-	console.log("'movie-this'");
+	console.log('Command not valid try:' + "\n'my-tweets'" + "\n'spotify-this-song'" + "\n'movie-this'" + "\n'my-weather'");
 }
 
 //fucntion to log user commands to a log.txt file
 function logCommand() {
 	fs.appendFile('log.txt', command + " " + input + ", " , 'utf8', function (err) {
 	if (err){
-		console.log('there was an error writing the file');
+		console.log('There was an error writing the file');
 	}
 });
 	
@@ -54,13 +53,12 @@ function logCommand() {
 function whatItSays() {
 
 	fs.readFile('random.txt', 'utf8', function (err, data) {
-	if(err){
-		console.log(err);
-	} else{
-		spotifySong(data);		
-	}
-});
-	
+		if(err){
+			console.log(err);
+		} else{
+			spotifySong(data);		
+		}
+	});
 }
 
 //ombd movie request function 
@@ -79,8 +77,6 @@ function movieRequest(title) {
 			console.log('Rating: ' + movie.data.rating);
 			console.log('Plot: ' + movie.data.plot);
 		}
-
-
 	});
 }
 
@@ -114,6 +110,26 @@ function twitterTweets(tweets){
 	client.get('statuses/user_timeline', params, function (error, tweets, response) {
 		if(!error){
 			console.log(tweets);
+		}
+	});
+}
+
+
+function weather(location){
+	var uri = 'http://api.openweathermap.org/data/2.5/weather?zip=' + location + '&units=imperial&APPID=a6b9b01e48e7d6bcf7c450f58774b963';
+	
+	request(uri, function(error, response, body){
+		var res = JSON.parse(body);
+
+		if(error){
+			console.log(error);
+		} else {
+			console.log('Weather for: ' + res.name);
+			console.log('Currently: ' + res.weather[0].main);
+			console.log('Description: ' + res.weather[0].description);
+			console.log('Temperature: ' + res.main.temp +  ' \u00B0F');
+			console.log('Wind Speed: ' + res.wind.speed + ' mph');
+			console.log('Wind Direction: ' + res.wind.deg + ' degrees');
 		}
 	});
 }
