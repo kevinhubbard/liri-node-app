@@ -1,11 +1,6 @@
 var fs = require('fs');
 var request = require('request');
 var Twitter = require('twitter');
-var spotify = require('spotify-web-api-node');
-var spotifyApi = new spotify({
-	clientId: 'a6c346e6688040eda33873fb89d9ab94',
-	clientSecret: '9fe3ff9ab107471c9fdc8f6be1b2e6b6'
-});
 var keys = require('./keys.js');
 
 var command = process.argv[2];
@@ -22,12 +17,12 @@ switch(command){
 	case "my-tweets":
 		twitterTweets();
 		break;
-	case "spotify-this-song":
+	case "id-this-song":
 		if (input == ""){
 			input = 'The Sign';
-			spotifySong(input);
+			idSong(input);
 		}else {
-			spotifySong(input);
+			idSong(input);
 		}
 		break;
 	case "my-weather":
@@ -40,7 +35,7 @@ switch(command){
 
 //function if user enters wrong command
 function notFound() {
-	console.log('\nCommand not valid try:' + "\n'my-tweets'" + "\n'spotify-this-song'" + "\n'movie-this'" + "\n'my-weather'");
+	console.log('\nCommand not valid try:' + "\n'my-tweets'" + "\n'id-this-song'" + "\n'movie-this'" + "\n'my-weather'");
 }
 
 //fucntion to log user commands to a log.txt file
@@ -85,7 +80,7 @@ function movieRequest(title) {
 }
 
 //spotify function that returns track info 
-function spotifySong(song) {
+function idSong(song) {
 	var track = 'http://ws.audioscrobbler.com/2.0/?method=track.search&track=' + song + '&api_key=75cf84fa3baa670809e72de33e192e20&limit=5&format=json';
 	
 	request(track, function(error, response, body){
