@@ -17,8 +17,9 @@
   },
   "keywords": [
     "node",
-    "spotify",
-    "omdb",
+    "open weather",
+    "movie_db",
+    "last_fm",
     "twitter"
   ],
   "author": "Kevin Hubbard",

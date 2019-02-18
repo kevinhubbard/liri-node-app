@@ -12,8 +12,8 @@ switch(command){
 		break;
 	case "movie-this":
 		if(input == undefined){
-			input = 'Space+Jam';
-			movieRequest(input);
+			var title = 'Office+Space';
+			movieRequest(title);
 		} else {
 			var key = input.replace(/ /g, '+');
 			movieRequest(key);
@@ -41,6 +41,14 @@ switch(command){
 			weather(input);
 		} else {
 			weather(input);
+		}
+		break;
+	case "mountain-info":
+		if(input == undefined){
+			input = 'Killington Resort'
+			mountain(input);
+		} else {
+			mountain(input);
 		}
 		break;
 	default:
@@ -77,19 +85,19 @@ function whatItSays() {
 
 //ombd movie request function 
 function movieRequest(title) {
-	var search = 'http://theapache64.xyz:8080/movie_db/search?keyword=' + title;
+	var search = 'http://www.omdbapi.com/?t=' + title +'&apikey=fc38517e';
 	request(search, function (error, response, body) {
 		var movie = JSON.parse(body);
 
 		if(error){
 			console.log(error);
-		} 
-		if (movie.Response === "False"){
-			console.log(movie.Error);
 		} else{
-			console.log('\nTitle: ' + movie.data.name);
-			console.log('Rating: ' + movie.data.rating);
-			console.log('Plot: ' + movie.data.plot);
+			console.log('\nTitle: ' + movie.Title);
+			console.log('Year: ' + movie.Year);
+			console.log('Rated: ' + movie.Rated);
+			console.log('Rotten tomatoes rating: ' + movie.Ratings[1].Value);
+			console.log('Plot: ' + movie.Plot);
+			
 		}
 	});
 }
@@ -153,3 +161,14 @@ function weather(location){
 	});
 }
 
+
+
+function mountain(mtn){
+	var uri = 'https://mountain-api.herokuapp.com/';
+
+	request(uri, function(error, response, body){
+		var res = JSON.parse(body);
+		var name = mtn;
+		console.log(res.mountain[1]+name);
+	});
+}
